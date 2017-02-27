@@ -27,4 +27,5 @@ RUN mkdir -p ${NODE_HOME} \
 #==============
 # command default out
 #==============
-CMD ["npm"]
+COPY ./startup.sh /tmp/startup.sh
+ENTRYPOINT ["/tmp/startup.sh"]

@@ -12,6 +12,7 @@ RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key
  && rm /etc/apt/sources.list.d/google-chrome.list \
  && whereis google-chrome-stable
 
+
 #==============
 # chromedriver
 #==============
@@ -26,6 +27,7 @@ RUN mkdir -p ${DRIVER_HOME} \
 
 ENV SELENIUM_WEB_DRIVER_CHROME_HOME ${DRIVER_HOME}
 
+
 #=============
 # xvfb
 #+============
@@ -36,7 +38,21 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 	xterm \
  && rm -rf /var/cache/* /var/log/apt/* /tmp/* 
 
+
+#=======================
+# python && supervisor
+#=======================
+RUN apt-get update && apt-get install -y --no-install-recommends \
+	python \
+ && rm -rf /var/cache/* /var/log/apt/* /tmp/*
+
+RUN curl -fsSL https://bootstrap.pypa.io/get-pip.py | python \
+ && pip --version \
+ && pip install supervisor
+
+
 USER uid1000
 
+COPY ./supervisor.xvfb.conf /tmp/supervisor.xvfb.conf
 COPY ./startup.sh /tmp/startup.sh
 ENTRYPOINT ["/tmp/startup.sh"]

@@ -81,5 +81,5 @@ function run_test_with_gui(){
 	mvn_gui test -P run-test
 }
 
-# test_mvn
-run_test
+test_mvn
+# run_test
