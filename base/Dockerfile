@@ -28,8 +28,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 		unzip \
 	&& rm -rf /var/lib/apt/lists/*
 
-
-#===================
-# Add a non-root user with UID=1000
-#===================adduser user && \
-RUN useradd -ms /bin/bash 'uid1000'
+COPY ./startup.sh /tmp/startup.sh
+RUN chmod +x /tmp/startup.sh
+ENTRYPOINT ["/tmp/startup.sh"]

@@ -27,3 +27,9 @@ RUN mkdir -p $MAVEN_HOME $MAVEN_REGISTRY \
 # change mirrors
 COPY ./settings.xml $MAVEN_HOME/conf/settings.xml
 
+#==============
+# entrypoint 
+#==============
+COPY ./startup.sh /tmp/startup.sh
+RUN chmod +x /tmp/startup.sh
+ENTRYPOINT ["/tmp/startup.sh"]

@@ -3,9 +3,10 @@
 #================
 # import config
 #================
-current_file_path=$(cd $(dirname "${0}"); pwd)
-. ${current_file_path}/config.sh
+here=$(cd $(dirname "${0}"); pwd)
 
-: ${image_name:=foolifish07/java}
+image_name='foolifish07/java'
 
-docker build -t ${image_name} ${current_file_path}
+docker build \
+	-t ${image_name} \
+	${here}

@@ -3,19 +3,22 @@
 #================
 # import config
 #================
-current_file_path=$(cd $(dirname "${0}"); pwd)
-. ${current_file_path}/config.sh
+here=$(cd $(dirname "${0}"); pwd)
 
+user_in_docker="uid${UID}"
+home_in_docker="/home/${user_in_docker}"
+project_in_docker="${home_in_docker}/project"
 
-#==============
+maven_registry_in_docker="${home_in_docker}/.m2"
+
+image_name='foolifish07/java'
+
+#================
 # value needed
-#==============
+#================
 workspace="--volume=$(pwd):${project_in_docker}
-		   --user=${user_in_docker}
-		   --workdir=${project_in_docker}"
+		   --env=uid=${UID}"
 volume_repositry="--volume=${HOME}/.m2:${maven_registry_in_docker}"
-image_name=${image_name}
-
 
 #=============
 # commands 
@@ -55,7 +58,10 @@ function test1(){
 }
 
 function example1(){
-	mvn -v
+	mvn -v && echo ${UID}
+
+	java -version
 }
 
-test1
+# test1
+example1

@@ -7,6 +7,4 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # ENV DISPLAY=:0
 VOLUME ["/tmp/.X11-unix"]
 
-USER uid1000
-
 CMD ["firefox"]

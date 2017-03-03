@@ -24,8 +24,7 @@ RUN mkdir -p ${NODE_HOME} \
 # change registry for china region
 # RUN npm config set registry https://registry.npm.taobao.org
 
-#==============
-# command default out
-#==============
 COPY ./startup.sh /tmp/startup.sh
+RUN chmod +x /tmp/startup.sh
 ENTRYPOINT ["/tmp/startup.sh"]
+CMD ["node"]

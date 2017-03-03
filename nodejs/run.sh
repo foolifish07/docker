@@ -1,19 +1,24 @@
 #!/bin/bash -exu
 
-#============
+#================
 # import config
-#============
-current_file_path=$(cd $(dirname "${0}"); pwd)
-. ${current_file_path}/config.sh
+#================
+here=$(cd $(dirname "${0}"); pwd)
 
-#==============
-# value needed
-#==============
+image_name="foolifish07/nodejs"
+uid=$UID
+user_in_docker="uid${uid}"
+home_in_docker="/home/${user_in_docker}"
+project_in_docker="${home_in_docker}/project"
+nodejs_repositry_in_docker="${home_in_docker}/.npm"
+nodejs_config_in_docker="${home_in_docker}/.npmrc"
+
+#===================
+# needed parameter
+#===================
 workspace="--volume=$(pwd):${project_in_docker}
-		   --user=${user_in_docker}
-		   --workdir=${project_in_docker}" 
+		   --env=uid=${uid}"
 volume_repositry="--volume=${HOME}/.npm:${nodejs_repositry_in_docker}"
-image_name=${image_name}
 
 #=============
 # commands 
@@ -38,15 +43,17 @@ function node(){
 # test and examples
 #===================
 function try(){
+
 	docker run --rm -it \
-		${volume_project} \
 		${volume_repositry} \
+		${workspace} \
 		${image_name} \
 		bash
 }
 
 function example1(){
-	npm install request
+	npm -v
+	node -v
 }
 
 function example2(){

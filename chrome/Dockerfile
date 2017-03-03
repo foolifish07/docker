@@ -17,6 +17,7 @@ RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key
 # ENV DISPLAY=:0
 VOLUME ["/tmp/.X11-unix"]
 
-USER uid1000
-
+COPY ./startup.sh /tmp/startup.sh
+RUN chmod +x /tmp/startup.sh
+ENTRYPOINT ["/tmp/startup.sh"]
 CMD ["google-chrome"]
