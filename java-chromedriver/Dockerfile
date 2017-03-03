@@ -50,6 +50,9 @@ RUN curl -fsSL https://bootstrap.pypa.io/get-pip.py | python \
  && pip --version \
  && pip install supervisor
 
+# change maven logger
+COPY ./simplelogger.properties /opt/maven/conf/logging/simplelogger.properties
+
 COPY ./supervisor.xvfb.conf /tmp/supervisor.xvfb.conf
 COPY ./startup.sh /tmp/startup.sh
 RUN chmod +x /tmp/startup.sh

@@ -19,7 +19,7 @@ function switch_user(){
 	cd /home/${username}/project
 	chmod 777 /home/${username}
 
-	make_commands_file ${@}
+	make_commands_file
 	local commands=/tmp/commands.sh
 
 	su ${username} \
@@ -28,9 +28,8 @@ function switch_user(){
 }
 
 function make_commands_file(){
-	local commands=/tmp/commands.sh
-
 	# copy PATH from ROOT PATH before running commands
+	local commands=/tmp/commands.sh
 	echo "export PATH=${PATH};" > ${commands}
 	echo 'echo ${UID}' >> ${commands}
 	echo 'pwd' >> ${commands}
