@@ -15,5 +15,12 @@ enable the `--no-sandbox` parameter.
 you can build the docker images by run `build.sh`.
 
 ### How to use docker image 
+
+To use gui with host you need to
+```
+$ xhost +x
+```
+
+
 about how to use the image, please refer to `run.sh`,
 and in default, the script runs as a user with UID=1000
